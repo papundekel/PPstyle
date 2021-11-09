@@ -1,9 +1,14 @@
 #!/bin/bash
 
-cd $( cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P )
+cur_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P )
 
-cp ./format ../.clang-format && \
+if (($# != 1)) || [ ! -d $1 ]; then
+    echo "Usage: format.sh DIR" >&2
+    exit 2
+fi
+
+cp "$cur_dir/.clang-format" "$1/" && \
 \
-find ../ -regex ".*\.[ch]\(pp\)?" | xargs clang-format -i && \
+find "$1" -regex ".*\.[ch]\(pp\)?" | xargs clang-format -i && \
 \
-rm ../.clang-format
+rm "$1/.clang-format"
