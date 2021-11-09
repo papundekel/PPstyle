@@ -29,4 +29,5 @@ BinPackParameters: false
 AllowAllArgumentsOnNextLine: false
 Cpp11BracedListStyle: true
 SpacesInSquareBrackets: false
+FixNamespaceComments: false
 #LambdaBodyIndentationKind: Signature
