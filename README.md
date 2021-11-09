@@ -1,2 +1,10 @@
 # PPstyle
-Clang Format Style.
+CMake formatting utility.
+
+## Usage
+
+```
+include(PPstyle)
+
+PPstyle(TARGET)
+```
