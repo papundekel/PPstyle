@@ -6,6 +6,7 @@ function(PPstyle TARGET_NAME)
     add_custom_target("${TARGET_NAME}-style"
         COMMAND "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/format.sh" "${DIR}"
         COMMENT "Formatting ${TARGET_NAME}"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}"
     )
     add_dependencies("${TARGET_NAME}" "${TARGET_NAME}-style")
 endfunction()
