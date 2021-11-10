@@ -1,5 +1,5 @@
 # PPstyle
-CMake formatting utility.
+CMake Clang-Format integration.
 
 ## Usage
 
