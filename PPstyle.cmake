@@ -4,7 +4,7 @@ function(PPstyle TARGET_NAME)
     get_target_property(DIR "${TARGET_NAME}" SOURCE_DIR)
 
     add_custom_target("${TARGET_NAME}-style"
-        COMMAND "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/format.sh" "${DIR}"
+        COMMAND "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/../bin/PPstyle.sh" "${DIR}"
         COMMENT "Formatting ${TARGET_NAME}"
         WORKING_DIRECTORY "${CMAKE_CURRENT_FUNCTION_LIST_DIR}"
     )

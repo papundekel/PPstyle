@@ -1,0 +1,35 @@
+name: Releases
+
+on: 
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: Move existing build directory
+        uses: addnab/docker-run-action@v3
+        with:
+          image: fackop/ppdocker
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
+          run: mkdir -p out-cmake out-cpack && mv out-cmake .out-cmake && mv out-cpack .out-cpack
+      - name: CMake
+        uses: addnab/docker-run-action@v3
+        with:
+          image: fackop/ppdocker
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
+          run: cmake -S . -B out-cmake/ -G "Ninja Multi-Config"
+      - name: CPack
+        uses: addnab/docker-run-action@v3
+        with:
+          image: fackop/ppdocker
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
+          run: cpack --config out-cmake/CPackConfig.cmake -B out-cpack/
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: out-cpack/PPstyle-*.*.*-*.tar.gz
