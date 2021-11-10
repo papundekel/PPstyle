@@ -6,12 +6,16 @@ on:
       - '*'
 
 jobs:
+  package:
+    runs-on: ubuntu-latest
+    uses: Petkr/PPstyle/.github/workflows/package.yml@main
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Create package
-        uses: Petkr/PPstyle/.github/workflows/package.yml@main
-      - uses: actions/download-artifact@v2
+        uses: 
+      - name: Download package
+        uses: actions/download-artifact@v2
         with:
           name: package
       - name: Release

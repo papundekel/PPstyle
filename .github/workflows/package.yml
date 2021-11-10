@@ -10,12 +10,6 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Move existing output directories
-        uses: addnab/docker-run-action@v3
-        with:
-          image: fackop/ppdocker
-          options: -v ${{ github.workspace }}:/workspace -w /workspace
-          run: mkdir -p out-cmake out-cpack && mv out-cmake .out-cmake && mv out-cpack .out-cpack
       - name: CMake
         uses: addnab/docker-run-action@v3
         with:
@@ -33,9 +27,3 @@ jobs:
         with:
           name: package
           path: out-cpack/PPstyle-*.*.*-*.tar.gz
-      - name: Move output directories back
-        uses: addnab/docker-run-action@v3
-        with:
-          image: fackop/ppdocker
-          options: -v ${{ github.workspace }}:/workspace -w /workspace
-          run: rm -r out-cmake/ out-cpack/; mv .out-cmake out-cmake && mv .out-cpack out-cpack
