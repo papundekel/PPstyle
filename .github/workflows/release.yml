@@ -7,7 +7,6 @@ on:
 
 jobs:
   package:
-    runs-on: ubuntu-latest
     uses: Petkr/PPstyle/.github/workflows/package.yml@main
   release:
     needs: package
