@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Move existing build directory
+      - name: Move existing output directories
         uses: addnab/docker-run-action@v3
+        if: always()
         with:
           image: fackop/ppdocker
           options: -v ${{ github.workspace }}:/workspace -w /workspace
@@ -33,3 +34,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: out-cpack/PPstyle-*.*.*-*.tar.gz
+      - name: Move output directories back
+        uses: addnab/docker-run-action@v3
+        if: always()
+        with:
+          image: fackop/ppdocker
+          options: -v ${{ github.workspace }}:/workspace -w /workspace
+          run: mv .out-cmake out-cmake && mv .out-cpack out-cpack
