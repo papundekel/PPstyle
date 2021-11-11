@@ -11,11 +11,11 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
       - name: CMake
-        uses: Petkr/PPactions/cmake-generate@v1
+        uses: Petkr/PPactions/generate@v1
       - name: CPack
         uses: Petkr/PPactions/cpack@v1
       - name: Upload package
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: out-cpack/*.tar.gz
+          path: out-cpack/*
