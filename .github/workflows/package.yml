@@ -11,19 +11,18 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
       - name: CMake
-        uses: addnab/docker-run-action@v3
+        uses: Petkr/PPactions/cmake-generate@latest
         with:
-          image: fackop/ppdocker
-          options: -v ${{ github.workspace }}:/workspace -w /workspace
-          run: cmake -S . -B out-cmake/ -G "Ninja Multi-Config"
+          source_dir: .
+          output_dir: out-cmake
+          generator: Ninja Multi-Config
       - name: CPack
-        uses: addnab/docker-run-action@v3
+        uses: Petkr/PPactions/cpack@latest
         with:
-          image: fackop/ppdocker
-          options: -v ${{ github.workspace }}:/workspace -w /workspace
-          run: cpack --config out-cmake/CPackConfig.cmake -B out-cpack/
+          config_dir: out-cmake
+          output_dir: out-cpack
       - name: Upload package
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: out-cpack/PPstyle-*.*.*-*.tar.gz
+          path: out-cpack/*.tar.gz
