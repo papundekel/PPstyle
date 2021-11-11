@@ -19,4 +19,4 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: PPstyle-*.*.*-*.tar.gz
+          files: PPstyle-*
