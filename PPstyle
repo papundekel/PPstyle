@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for file in $@
+do
+    dir=`dirname $file`
+
+    format_linked=false
+
+    if [ ! -f "$dir/.clang-format" ]; then
+        ln -s "$(pwd)/PPstyle.format" "$dir/.clang-format"
+        format_linked=true
+    fi
+
+    clang-format -i "$file"
+
+    if $format_provided; then
+        rm "$dir/.clang-format"
+    fi
+
+done
