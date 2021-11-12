@@ -5,5 +5,5 @@ on:
   - workflow_dispatch
 
 jobs:
-  package:
+  Release:
     uses: Petkr/PPactions/.github/workflows/release.yml@v1
