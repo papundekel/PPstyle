@@ -1,10 +1,10 @@
 name: Release
 
 on:
-  - push:
-      tags:
-        - '*'
-  - workflow_dispatch
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
 
 jobs:
   Release:
