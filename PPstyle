@@ -1,20 +1,35 @@
 #!/bin/bash
 
+echo "$@"
+
 for file in $@
 do
     dir=`dirname $file`
 
-    format_linked=false
+    lockdir="${dir}/PPstyle.lock"
 
-    if [ ! -f "$dir/.clang-format" ]; then
-        ln -s "$(pwd)/PPstyle.format" "$dir/.clang-format"
-        format_linked=true
-    fi
+    while :
+    do
+        if mkdir "$lockdir"
+        then
+            trap 'rm -rf "$lockdir"' 0
 
-    clang-format -i "$file"
+            format_linked=false
 
-    if $format_provided; then
-        rm "$dir/.clang-format"
-    fi
+            if [ ! -f "$dir/.clang-format" ]; then
+                ln -s "$(pwd)/PPstyle.format" "$dir/.clang-format"
+                format_linked=true
+            fi
 
+            clang-format -i "$file"
+
+            if $format_provided; then
+                rm "$dir/.clang-format"
+            fi
+
+            rm -rf "$lockdir"
+
+            break
+        fi
+    done
 done
