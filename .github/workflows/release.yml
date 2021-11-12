@@ -1,22 +1,7 @@
 name: Release
 
-on: 
-  push:
-    tags:
-      - '*'
+on: push
 
 jobs:
   package:
-    uses: Petkr/PPstyle/.github/workflows/package.yml@main
-  release:
-    needs: package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download package
-        uses: actions/download-artifact@v2
-        with:
-          name: package
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: PPstyle-*
+    uses: Petkr/PPactions/release.yml@v1
