@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(PPstyle VERSION "1.0.9")
-
+project(PPstyle VERSION "1.0.10")
 include(GNUInstallDirs)
 
 install(FILES "PPstyle"
