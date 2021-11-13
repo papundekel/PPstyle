@@ -14,6 +14,7 @@ BreakBeforeBraces: Custom
 BraceWrapping:
   AfterControlStatement: true
   AfterClass: true
+  AfterEnum: true
   AfterFunction: true
   AfterNamespace: true
   AfterStruct: true
@@ -30,4 +31,5 @@ AllowAllArgumentsOnNextLine: false
 Cpp11BracedListStyle: true
 SpacesInSquareBrackets: false
 FixNamespaceComments: false
-#LambdaBodyIndentationKind: Signature
+LambdaBodyIndentation: Signature
+IndentRequires: true

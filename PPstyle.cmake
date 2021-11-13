@@ -27,10 +27,15 @@ function(PPstyle TARGET_NAME)
 
     set(_style_target "${TARGET_NAME}-style")
 
+    file(READ "${_install_prefix}/${CMAKE_INSTALL_SHAREDSTATEDIR}/PPstyle.format" _style)
+    string(REGEX REPLACE "((\n  [^\n]*)+)" "{\\1}" _style "${_style}")
+    string(REPLACE "{\n" " {" _style "${_style}")
+    string(REPLACE "\n" "," _style "${_style}")
+
     add_custom_target("${_style_target}"
-        COMMAND "${_install_prefix}/${CMAKE_INSTALL_BINDIR}/PPstyle" "${_all_sources}"
+        COMMAND clang-format --style={${_style}} -i ${_all_sources}
         COMMENT "Formatting ${TARGET_NAME}"
-        WORKING_DIRECTORY "${_install_prefix}/${CMAKE_INSTALL_SHAREDSTATEDIR}/"
+        VERBATIM
         COMMAND_EXPAND_LISTS
     )
 
