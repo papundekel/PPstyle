@@ -4,8 +4,8 @@ function(init)
     set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_LIST_DIR}/vendor/${CMAKE_INSTALL_DATADIR}/cmake" PARENT_SCOPE)
 endfunction()
 
-function(download_package URL)
-    cmake_path(GET URL FILENAME _filename)
+function(download_package _url)
+    cmake_path(GET _url FILENAME _filename)
 
     file(DOWNLOAD "${URL}" "${_filename}")
     file(ARCHIVE_EXTRACT INPUT "${_filename}" DESTINATION "${CMAKE_CURRENT_LIST_DIR}/vendor")
