@@ -1,24 +1,15 @@
 cmake_minimum_required(VERSION 3.20)
 
-function(init)
-    set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_LIST_DIR}/vendor/${CMAKE_INSTALL_DATADIR}/cmake" PARENT_SCOPE)
-endfunction()
+project(PPstyle VERSION "1.0.13")
 
-function(download_package _url)
-    cmake_path(GET _url FILENAME _filename)
+file(DOWNLOAD "https://raw.githubusercontent.com/Petkr/PPcmake/main/PPcmake.cmake" "${CMAKE_BINARY_DIR}/PPcmake.cmake")
+include("${CMAKE_BINARY_DIR}/PPcmake.cmake")
 
-    file(DOWNLOAD "${URL}" "${_filename}")
-    file(ARCHIVE_EXTRACT INPUT "${_filename}" DESTINATION "${CMAKE_CURRENT_LIST_DIR}/vendor")
-    file(REMOVE "${_filename}")
-endfunction()
+PPcmake_package("github.com" "Petkr" "PPcmake" "1.0.2")
+include(PPcmake)
 
-project(PPstyle VERSION "1.0.12")
-include(GNUInstallDirs)
+PPcmake_install_file("${PPCMAKE_MODULE_PATH}/PPcmake.cmake")
+PPcmake_install_file("PPstyle.cmake")
+PPcmake_install_file("PPstyle.format")
 
-init()
-
-install(FILES "PPstyle.cmake" DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/")
-install(FILES "PPstyle.format" DESTINATION "${CMAKE_INSTALL_SHAREDSTATEDIR}")
-
-set(CPACK_GENERATOR "TGZ")
-include(CPack)
+PPcmake_cpack()

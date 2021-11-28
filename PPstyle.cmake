@@ -1,22 +1,17 @@
 cmake_minimum_required(VERSION 3.20)
 
+include(GNUInstallDirs)
+include(PPcmake)
+
 function(PPstyle TARGET_NAME)
-    function(PPreset_notfound_var LIST)
-        if(${LIST} STREQUAL "${LIST}-NOTFOUND")
-            set(${LIST} "" PARENT_SCOPE)
-        endif()
-    endfunction()
-
-    include(GNUInstallDirs)
-
     set(_install_prefix "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/../../")
 
     get_target_property(_source_dir "${TARGET_NAME}" SOURCE_DIR)
     get_target_property(_sources "${TARGET_NAME}" SOURCES)
     get_target_property(_interface_sources "${TARGET_NAME}" INTERFACE_SOURCES)
 
-    PPreset_notfound_var(_sources)
-    PPreset_notfound_var(_interface_sources)
+    PPcmake_reset_notfound_var(_sources)
+    PPcmake_reset_notfound_var(_interface_sources)
 
     foreach(_source ${_sources} ${_interface_sources})
         cmake_path(ABSOLUTE_PATH _source BASE_DIRECTORY "${_source_dir}" OUTPUT_VARIABLE _source)
